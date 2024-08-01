@@ -25,6 +25,7 @@ app.get("/", (req, res) => {
 
 async function run() {
   const studentsCollection = client.db("summitDB").collection("students");
+  const teachersCollection = client.db("summitDB").collection("teachers");
   try {
     // get all students list
     app.get("/students", async (req, res) => {
@@ -54,6 +55,11 @@ async function run() {
       } catch (error) {
         res.send(error);
       }
+    });
+
+    app.get("/teachers", async (req, res) => {
+      const result = await teachersCollection.find().toArray();
+      res.send(result);
     });
 
     console.log(
